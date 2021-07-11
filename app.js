@@ -64,7 +64,7 @@ const newsService = (function() {
 
   return {
 
-    topHeadlines(country = 'ua',category = 'business', cb) {
+    topHeadlines(country = 'us',category = 'business', cb) {
       http.get(
         `${apiUrl}/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}`,
         cb,
@@ -118,6 +118,9 @@ function onGetResponse(err, res) {
   }
 
   if (!res.articles.length) {
+    if (newsContainer.children.length) {
+      clearContainer(newsContainer);
+    }
     const emptyMsg = showEmptyMassage();
     newsContainer.insertAdjacentHTML('afterbegin', emptyMsg);
     return;
